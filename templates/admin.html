@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin</title>
+  </head>
+  <body>
+    <h2><a href=" {{ url_for("new_post") }} ">Để thêm dữ liệu bấm vào đây</a></h2>
+    <table border="1px">
+      <thead>
+        <th>STT</th>
+        <th>Tên bài viết</th>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+          <tr>
+            <td> {{ loop.index }} </td>
+            <td> {{ post.title }} </td>
+            <td>
+              <a href=" {{ url_for("update", link_to_find2 = post.link) }} ">Sửa</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

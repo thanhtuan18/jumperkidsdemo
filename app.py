@@ -1,8 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, request, session
-# import mlab
-import re
+from models.post import Post
+import mlab
+from slugify import slugify, Slugify, UniqueSlugify
+
 app = Flask(__name__)
 
+mlab.connect()
 
 @app.route('/')
 def index():
@@ -11,6 +14,54 @@ def index():
 @app.route('/xich-du-nhun-nhay-jumperkids')
 def sp():
     return render_template('page_sp.html')
+
+@app.route('/new_post', methods=["GET", "POST"])
+def new_post():
+    if request.method == "GET":
+        return render_template('new_post.html')
+    elif request.method == "POST":
+        form = request.form
+        title = form["title"]
+        content = form["content"]
+
+        list_link = []
+        posts = Post.objects()
+        for post in posts:
+            list_link.append(post.link)
+
+        slug = UniqueSlugify(uids=list_link, to_lower=True)
+        link = slug(title)
+
+        new_post = Post(title=title, content=content, link=link)
+        new_post.save()
+
+        return "bài viết đã được tạo"
+
+@app.route('/<link_to_find>')
+def link(link_to_find):
+    get_info = Post.objects().get(link = link_to_find)
+    try:
+        return render_template('page_bai_viet.html', get_info = get_info)
+    except models.post.DoesNotExist:
+        return json.loads({'error' : 'that set does not exist'})
+
+@app.route('/admin')
+def admin():
+    posts = Post.objects()
+    return render_template('admin.html', posts = posts)
+
+@app.route('/update/<link_to_find2>', methods=["GET", "POST"])
+def update(link_to_find2):
+    get_post = Post.objects().get(link = link_to_find2)
+    if request.method == "GET":
+        return render_template('update.html', get_post=get_post)
+    elif request.method == "POST":
+        form = request.form
+        title = form["title"]
+        content = form["content"]
+
+        get_post.update(set__title=title, set__content=content)
+        return "Bài viết đã cập nhật"
 
 if __name__ == '__main__':
   app.run(debug=True)
