@@ -1,6 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from models.post import Post
 import mlab
+import unittest
+from mongoengine import DoesNotExist
 from slugify import slugify, Slugify, UniqueSlugify
 
 app = Flask(__name__)
@@ -32,18 +34,19 @@ def new_post():
         slug = UniqueSlugify(uids=list_link, to_lower=True)
         link = slug(title)
 
-        new_post = Post(title=title, content=content, link=link)
+        new_post = Post(title=title, link=link, content=content)
         new_post.save()
 
         return "bài viết đã được tạo"
 
 @app.route('/<link_to_find>')
 def link(link_to_find):
-    get_info = Post.objects().get(link = link_to_find)
     try:
+        # get_info = assertRaises(DoesNotExist, Post.objects.get, link = link_to_find)
+        get_info = Post.objects().get(link = link_to_find)
         return render_template('page_bai_viet.html', get_info = get_info)
-    except models.post.DoesNotExist:
-        return json.loads({'error' : 'that set does not exist'})
+    except DoesNotExist:
+        return "Lỗi 404! Vui lòng kiểm tra lại đường link."
 
 @app.route('/admin')
 def admin():
