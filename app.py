@@ -1,7 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from models.post import Post
 import mlab
-import unittest
 from mongoengine import DoesNotExist
 from slugify import slugify, Slugify, UniqueSlugify
 
