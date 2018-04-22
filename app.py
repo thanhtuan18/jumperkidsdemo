@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from models.post import Post
 import mlab
 from mongoengine import DoesNotExist
-from slugify import slugify, Slugify, UniqueSlugify
+from slugify import slugify, UniqueSlugify
 
 app = Flask(__name__)
 
