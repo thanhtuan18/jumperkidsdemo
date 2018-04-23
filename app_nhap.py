@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from models.post import Post
 import mlab
 from mongoengine import DoesNotExist
-from slugify import slugify
+from slugify import slugify, UniqueSlugify
 
 app = Flask(__name__)
 
@@ -24,16 +24,19 @@ def new_post():
         form = request.form
         title = form["title"]
         content = form["content"]
-        link = slugify(title)
 
-        try:
-            bai_viet = Post.objects().get(link = link)
-            if link == bai_viet.link:
-                return "Tiêu đề đã tồn tại, vui lòng đặt tiêu đề mới"
-        except DoesNotExist:
-            new_post = Post(title=title, link=link, content=content)
-            new_post.save()
-            return "bài viết đã được tạo"
+        list_link = []
+        posts = Post.objects()
+        for post in posts:
+            list_link.append(post.link)
+
+        slug = UniqueSlugify(uids=list_link, to_lower=True)
+        link = slug(title)
+
+        new_post = Post(title=title, link=link, content=content)
+        new_post.save()
+
+        return "bài viết đã được tạo"
 
 @app.route('/<link_to_find>')
 def link(link_to_find):
