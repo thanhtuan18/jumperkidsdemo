@@ -21,4 +21,6 @@ gunicorn
 # ----------------------
 addict
 shortuuid
+slugify
 python-slugify
+awesome-slugify
