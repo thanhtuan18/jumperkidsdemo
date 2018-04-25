@@ -19,6 +19,9 @@
             <td>
               <a href=" {{ url_for("update", link_to_find2 = post.link) }} ">Sửa</a>
             </td>
+            <td>
+              <a href=" {{ url_for("link", link_to_find = post.link) }} ">Link</a>
+            </td>
           </tr>
         {% endfor %}
       </tbody>

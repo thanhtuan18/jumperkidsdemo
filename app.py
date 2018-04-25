@@ -25,7 +25,6 @@ def new_post():
         title = form["title"]
         content = form["content"]
         link = slugify(title)
-
         try:
             bai_viet = Post.objects().get(link = link)
             if link == bai_viet.link:
@@ -40,6 +39,12 @@ def link(link_to_find):
     try:
         # get_info = assertRaises(DoesNotExist, Post.objects.get, link = link_to_find)
         get_info = Post.objects().get(link = link_to_find)
+        path = "/templates/html_file.html"
+        html_str = get_info.content
+        html_file= open(path,"w", encoding='utf-8')
+        html_file.write(html_str)
+        html_file.close()
+
         return render_template('page_bai_viet.html', get_info = get_info)
     except DoesNotExist:
         return "Lỗi 404! Vui lòng kiểm tra lại đường link."
@@ -58,7 +63,6 @@ def update(link_to_find2):
         form = request.form
         title = form["title"]
         content = form["content"]
-
         get_post.update(set__title=title, set__content=content)
         return "Bài viết đã cập nhật"
 

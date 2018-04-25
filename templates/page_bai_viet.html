@@ -3,10 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>{{ get_info.title }}</title>
+    {% include "meta-data-sp.html" %}
   </head>
   <body>
-    <h1>{{ get_info.title }}</h1>
-    <br>
-    {{ get_info.content }}
+    {% include "/page_sp/navigator.html" %}
+
+    <div class="my-5" style="padding-top: 25px">
+      <h1 class="text-center"><strong>{{ get_info.title }}</strong></h1>
+      <div class="detail-content">
+        {% include "/html_file.html" %}
+      </div>
+    </div>
+
+    {% include "/page_sp/danh-gia.html" %}
+    {% include "/page_sp/tiet-kiem.html" %}
+    {% include "/page_sp/line.html" %}
+    {% include "/page_sp/footer.html" %}
+
+    <div class="zalo-chat-widget" data-oaid="3554316881365101286" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="350" data-height="420"></div>
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+
   </body>
 </html>
