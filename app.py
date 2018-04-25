@@ -41,10 +41,7 @@ def link(link_to_find):
         # get_info = assertRaises(DoesNotExist, Post.objects.get, link = link_to_find)
         get_info = Post.objects().get(link = link_to_find)
 
-        APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(APP_ROOT, '/templates/html_file.html')
-
-        # path = "/templates/html_file.html"
+        path = "./templates/html_file.html"
         html_str = get_info.content
         html_file= open(path,"w", encoding='utf-8')
         html_file.write(html_str)
