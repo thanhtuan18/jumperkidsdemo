@@ -39,7 +39,8 @@ Bootstrap 4 breakpoints
 
 .detail-content{
   max-width: 650px;
-  margin: 30px auto;
+  margin: 0px auto;
+  padding-top: : 0px auto;
   /* text-align: left; */
   /* line-height: 1.6; */
   /* letter-spacing: 0.25px; */

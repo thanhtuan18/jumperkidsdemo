@@ -8,13 +8,14 @@
   <body>
     {% include "/page_sp/navigator.html" %}
 
-    <div class="my-5" style="padding-top: 25px">
+    <div class="mt-5" style="padding-top: 25px">
       <h1 class="text-center"><strong>{{ get_info.title }}</strong></h1>
-      <div class="detail-content">
+      <div class="detail-content container-fluid">
         {% include "/html_file.html" %}
       </div>
     </div>
 
+    {% include "/page_sp/line2.html" %}
     {% include "/page_sp/danh-gia.html" %}
     {% include "/page_sp/tiet-kiem.html" %}
     {% include "/page_sp/line.html" %}
