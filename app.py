@@ -6,6 +6,7 @@ from slugify.slugify import slugify
 import os
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "xichdunhunnhaytopdauthitruonghanoi@@@@2018"
 
 mlab.connect()
 
@@ -53,8 +54,25 @@ def link(link_to_find):
 
 @app.route('/admin')
 def admin():
-    posts = Post.objects()
-    return render_template('admin.html', posts = posts)
+    if "logged_in" in session and session["logged_in"] == True:
+        posts = Post.objects()
+        return render_template('admin.html', posts = posts)
+    else:
+        return redirect(url_for("login"))
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return render_template('login.html')
+    elif request.method == "POST":
+        form = request.form
+        username = form["username"]
+        password = form["password"]
+        if username == "admin" and password == "tuan@2018":
+            session["logged_in"] = True
+            return redirect(url_for("admin"))
+        else:
+            return "Sai mật khẩu, vui lòng đăng nhập lại"
 
 @app.route('/update/<link_to_find2>', methods=["GET", "POST"])
 def update(link_to_find2):
