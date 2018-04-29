@@ -8,9 +8,12 @@
   <body>
     {% include "/page_sp/navigator.html" %}
 
-    <div class="mt-5" style="padding-top: 25px">
-      <h1 class="text-center"><strong>{{ get_info.title }}</strong></h1>
-      <div class="detail-content container-fluid">
+    <div class = "mt-5" style = "padding-top: 25px">
+      <div class = "detail-content">
+        <h1 class = "text-center"><strong>{{ get_info.title }}</strong></h1>
+      </div>
+      <br>
+      <div class = "detail-content container-fluid">
         {% include "/html_file.html" %}
       </div>
     </div>

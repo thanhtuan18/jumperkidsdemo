@@ -21,7 +21,12 @@ def sp():
 @app.route('/new_post', methods=["GET", "POST"])
 def new_post():
     if request.method == "GET":
-        return render_template('new_post.html')
+
+        if "logged_in" in session and session["logged_in"] == True:
+            return render_template('new_post.html')
+        else:
+            return redirect(url_for("login"))
+
     elif request.method == "POST":
         form = request.form
         title = form["title"]
@@ -78,7 +83,12 @@ def login():
 def update(link_to_find2):
     get_post = Post.objects().get(link = link_to_find2)
     if request.method == "GET":
-        return render_template('update.html', get_post=get_post)
+
+        if "logged_in" in session and session["logged_in"] == True:
+            return render_template('update.html', get_post = get_post)
+        else:
+            return redirect(url_for("login"))
+
     elif request.method == "POST":
         form = request.form
         title = form["title"]
