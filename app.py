@@ -44,18 +44,13 @@ def new_post():
 @app.route('/<link_to_find>')
 def link(link_to_find):
     try:
-        # get_info = assertRaises(DoesNotExist, Post.objects.get, link = link_to_find)
         get_info = Post.objects().get(link = link_to_find)
+        id_html = get_info.content
+        html_title = get_info.title
+        return render_template('page_bai_viet.html', id_html = id_html, html_title = html_title)
 
-        path = "./templates/html_file.html"
-        html_str = get_info.content
-        html_file= open(path,"w", encoding='utf-8')
-        html_file.write(html_str)
-        html_file.close()
-
-        return render_template('page_bai_viet.html', get_info = get_info)
     except DoesNotExist:
-        return "Lỗi 404! Vui lòng kiểm tra lại đường link."
+        return "Link không tồn tại (404)! Vui lòng kiểm tra lại đường link."
 
 @app.route('/admin')
 def admin():

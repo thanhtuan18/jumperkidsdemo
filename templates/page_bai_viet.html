@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{ get_info.title }}</title>
+    <title>{{ html_title }}</title>
     {% include "meta-data-sp.html" %}
   </head>
   <body>
@@ -10,11 +10,12 @@
 
     <div class = "mt-5" style = "padding-top: 25px">
       <div class = "detail-content">
-        <h1 class = "text-center"><strong>{{ get_info.title }}</strong></h1>
+        <h1 class = "text-center"><strong>{{ html_title }}</strong></h1>
       </div>
       <br>
       <div class = "detail-content container-fluid">
-        {% include "/html_file.html" %}
+        {% include "/page_bai_viet/" + id_html + ".html" %}
+
       </div>
     </div>
 
