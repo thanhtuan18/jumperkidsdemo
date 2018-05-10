@@ -65,3 +65,15 @@ Bootstrap 4 breakpoints
   p {
     font-size: 13px;
   }
+
+<style type="text/css">
+
+#share-buttons img {
+width: 35px;
+padding: 5px;
+border: 0;
+box-shadow: 0;
+display: inline;
+}
+
+</style>
